@@ -1,2 +1,1 @@
 # Java-for-testers
-test
