@@ -6,42 +6,29 @@ public class TestOfContactCreation extends TestBase {
 
 	@Test
 	  public void testEmptyContactCreation() throws Exception {
-		openMainPage();
-	    intiateContactCreation();
+		app.getNavigationHelper().openMainPage();
+		app.getContactHelper().intiateContactCreation();
 	    DataOfContactCreation contactData = new DataOfContactCreation();
-	    contactData.firstname = "";
-	    contactData.lastname = "";
-	    contactData.address = "";
-	    contactData.home = "";
-	    contactData.mobile = "";
-	    contactData.work = "";
-	    contactData.email = "";
-	    contactData.email2 = "";
-	    contactData.bday = "";
-	    contactData.bmonth = "";
-	    contactData.byear = "";
-	    contactData.address2 = "";
-	    contactData.phone2 = "";
-	    contactData.new_group = "";
-	    fillContactCreationForm(contactData);
-	    submitContactCreation();
-	    gotoHomePage();
+	    app.getContactHelper().fillContactCreationForm(contactData);
+	    app.getContactHelper().submitContactCreation();
+	    app.getNavigationHelper().gotoHomePage();
 	  }
 
 	  @Test
 	  public void testNonEmptyContactCreation() throws Exception {
-		openMainPage();
+		app.getNavigationHelper().openMainPage();
 		//creating a group for this test
-	    gotoGroupPage();
-	    initiateGroupCreation();
+	    app.getNavigationHelper().gotoGroupPage();
+	    app.getGroupHelper().initiateGroupCreation();
 	    DataOfGroupCreation groupData = new DataOfGroupCreation();
-	    groupData.group_name = "Test_name1";
-	    groupData.group_header = "Test_header1";
-	    groupData.group_footer = "Test_footer1";
-		fillGroupCreationForm(groupData);
-		submitGroupCreation();
+	    groupData.group_name = "Test_group_name1";
+	    groupData.group_header = "Test_group_header1";
+	    groupData.group_footer = "Test_group_footer1";
+	    app.getGroupHelper().fillGroupCreationForm(groupData);
+	    app.getGroupHelper().submitGroupCreation();
 		//creating the contact
-	    intiateContactCreation();
+		app.getNavigationHelper().openMainPage();
+	    app.getContactHelper().intiateContactCreation();
 	    DataOfContactCreation contactData = new DataOfContactCreation();
 	    contactData.firstname = "F_name";
 	    contactData.lastname = "L_name";
@@ -57,8 +44,8 @@ public class TestOfContactCreation extends TestBase {
 	    contactData.address2 = "Adress2";
 	    contactData.phone2 = "home_phone2";
 	    contactData.new_group = "Test_name1";
-	    fillContactCreationForm(contactData);
-	    submitContactCreation();
-	    gotoHomePage();
+	    app.getContactHelper().fillContactCreationForm(contactData);
+	    app.getContactHelper().submitContactCreation();
+	    app.getNavigationHelper().gotoHomePage();
 	  }
 }

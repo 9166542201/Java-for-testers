@@ -2,37 +2,30 @@ package com.example.tests;
 
 import org.testng.annotations.Test;
 
-public class TestOfGroupCreation extends TestBase{
+public class TestOfGroupCreation extends TestBase {
 
-	@Test
+  @Test
   public void testNonEmptyGroupCreation() throws Exception {
-    openMainPage();
-    gotoGroupPage();
-    initiateGroupCreation();
-
+	app.getNavigationHelper().openMainPage();
+    app.getNavigationHelper().gotoGroupPage();
+    app.getGroupHelper().initiateGroupCreation();
     DataOfGroupCreation groupData = new DataOfGroupCreation();
-    groupData.group_name = "Test_name";
-    groupData.group_header = "Test_header";
-    groupData.group_footer = "Test_footer";
-	fillGroupCreationForm(groupData);
-
-	submitGroupCreation();
-    returnToGroupPage();
+    groupData.group_name = "Test_group_name";
+    groupData.group_header = "Test_group_header";
+    groupData.group_footer = "Test_group_header";
+    app.getGroupHelper().fillGroupCreationForm(groupData);
+    app.getGroupHelper().submitGroupCreation();
+    app.getNavigationHelper().returnToGroupPage();
   }
 
   @Test
   public void testEmptyGroupCreation() throws Exception {
-    openMainPage();
-    gotoGroupPage();
-    initiateGroupCreation();
-
+	app.getNavigationHelper().openMainPage();
+    app.getNavigationHelper().gotoGroupPage();
+    app.getGroupHelper().initiateGroupCreation();
     DataOfGroupCreation groupData = new DataOfGroupCreation();
-    groupData.group_name = "";
-    groupData.group_header = "";
-    groupData.group_footer = "";
-	fillGroupCreationForm(groupData);
-
-	submitGroupCreation();
-    returnToGroupPage();
+    app.getGroupHelper().fillGroupCreationForm(groupData);
+    app.getGroupHelper().submitGroupCreation();
+    app.getNavigationHelper().returnToGroupPage();
   }
 }
