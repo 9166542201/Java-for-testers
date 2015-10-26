@@ -1,51 +1,30 @@
 package com.example.tests;
 
+import java.util.Collections;
+import java.util.List;
+
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class TestOfContactCreation extends TestBase {
 
-	@Test
-	  public void testEmptyContactCreation() throws Exception {
+	@Test(dataProvider = "randomValidContactGenerator")
+	public void testContactCreationWithValidData(ContactData contactData) throws Exception {
 		app.getNavigationHelper().openMainPage();
+		// save old state
+		List<ContactData> oldList = app.getContactHelper().getContacts();
+		// action
 		app.getContactHelper().intiateContactCreation();
-	    DataOfContactCreation contactData = new DataOfContactCreation();
-	    app.getContactHelper().fillContactCreationForm(contactData);
-	    app.getContactHelper().submitContactCreation();
-	    app.getNavigationHelper().gotoHomePage();
-	  }
-
-	  @Test
-	  public void testNonEmptyContactCreation() throws Exception {
-		app.getNavigationHelper().openMainPage();
-		//creating a group for this test
-	    app.getNavigationHelper().gotoGroupPage();
-	    app.getGroupHelper().initiateGroupCreation();
-	    DataOfGroupCreation groupData = new DataOfGroupCreation();
-	    groupData.group_name = "Test_group_name1";
-	    groupData.group_header = "Test_group_header1";
-	    groupData.group_footer = "Test_group_footer1";
-	    app.getGroupHelper().fillGroupCreationForm(groupData);
-	    app.getGroupHelper().submitGroupCreation();
-		//creating the contact
-		app.getNavigationHelper().openMainPage();
-	    app.getContactHelper().intiateContactCreation();
-	    DataOfContactCreation contactData = new DataOfContactCreation();
-	    contactData.firstname = "F_name";
-	    contactData.lastname = "L_name";
-	    contactData.address = "Adress1";
-	    contactData.home = "home_phone1";
-	    contactData.mobile = "mobile_phone";
-	    contactData.work = "work_phone";
-	    contactData.email = "email";
-	    contactData.email2 = "email2";
-	    contactData.bday = "1";
-	    contactData.bmonth = "January";
-	    contactData.byear = "2000";
-	    contactData.address2 = "Adress2";
-	    contactData.phone2 = "home_phone2";
-	    contactData.new_group = "Test_name1";
-	    app.getContactHelper().fillContactCreationForm(contactData);
-	    app.getContactHelper().submitContactCreation();
-	    app.getNavigationHelper().gotoHomePage();
-	  }
+		app.getContactHelper().fillContactCreationForm(contactData);
+		app.getContactHelper().submitContactCreation();
+		app.getNavigationHelper().gotoHomePage();
+		oldList.add(contactData);
+		// save new state
+		List<ContactData> newList = app.getContactHelper().getContacts();
+		// compare states
+		Collections.sort(oldList);
+		//System.out.println("-----------------"); for (ContactData i : oldList) System.out.println(i); //Output to debug
+	    Collections.sort(newList);// без этого не работает при таком генераторе как здесь, когда возможны стоки, которые оличаются только регистром!
+		Assert.assertEquals(newList, oldList);
+	}
 }
