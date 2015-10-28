@@ -52,21 +52,25 @@ public class ContactHelper extends HelperBase {
 	}
 
 	public List<ContactData> getContacts() {
-		List<ContactData> contacts = new ArrayList<>();
-		List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
-		for (WebElement checkbox : checkboxes) {
-			String title = checkbox.getAttribute("title");
+		List<ContactData> contacts = new ArrayList<ContactData>();
+		List<WebElement> firstNames = driver.findElements(By.xpath("//tr[@name='entry']//td[3]"));
+		List<WebElement> lastNames = driver.findElements(By.xpath("//tr[@name='entry']//td[2]"));
+		List<WebElement> emails = driver.findElements(By.xpath("//tr[@name='entry']//td[4]"));
+		List<WebElement> homeTelephones = driver.findElements(By.xpath("//tr[@name='entry']//td[5]"));
+
+		assert firstNames.size() == lastNames.size();
+		assert firstNames.size() == emails.size();
+		assert firstNames.size() == homeTelephones.size();
+
+		for (int i = 0; i < firstNames.size(); i++) {
 			ContactData contact = new ContactData();
-			title = title.substring("Select (".length(), title.lastIndexOf(")"));
-			if (title.length() == 0) {
-				contact.firstname = "";
-				contact.lastname = "";
-			} else {
-				contact.firstname = title.substring(0, title.indexOf(" "));
-				contact.lastname = title.substring(title.indexOf(" ") + 1);
-			}
+			contact.firstname = firstNames.get(i).getText();
+			contact.lastname = lastNames.get(i).getText();
+			contact.email = emails.get(i).getText();
+			contact.home = homeTelephones.get(i).getText();
 			contacts.add(contact);
 		}
+
 		return contacts;
 	}
 

@@ -28,7 +28,7 @@ public class TestOfGroupRemoval extends TestBase {
 			// compare states
 			oldList.remove(indx);
 			Collections.sort(oldList);
-		    Collections.sort(newList);// без этого не работает при таком генераторе как здесь, когда возможны стоки, которые оличаются только регистром!
+		    Collections.sort(newList);
 			assertEquals(newList, oldList);
 		}
 	}

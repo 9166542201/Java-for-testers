@@ -30,10 +30,7 @@ public class TestOfGroupModification extends TestBase {
 			oldList.remove(indx);
 			oldList.add(groupData);
 			Collections.sort(oldList);
-			Collections.sort(newList);// без этого не работает при таком
-										// генераторе как здесь, когда возможны
-										// стоки, которые оличаются только
-										// регистром!
+			Collections.sort(newList);
 			assertEquals(newList, oldList);
 		}
 	}

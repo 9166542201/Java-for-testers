@@ -18,13 +18,15 @@ public class TestOfContactCreation extends TestBase {
 		app.getContactHelper().fillContactCreationForm(contactData);
 		app.getContactHelper().submitContactCreation();
 		app.getNavigationHelper().gotoHomePage();
+		app.getNavigationHelper().openMainPage();
 		oldList.add(contactData);
 		// save new state
 		List<ContactData> newList = app.getContactHelper().getContacts();
 		// compare states
 		Collections.sort(oldList);
-		//System.out.println("-----------------"); for (ContactData i : oldList) System.out.println(i); //Output to debug
-	    Collections.sort(newList);// без этого не работает при таком генераторе как здесь, когда возможны стоки, которые оличаются только регистром!
+		System.out.println("oldList-----------------"); for (ContactData i : oldList) System.out.println(i); //Output to debug
+	    Collections.sort(newList);
+		System.out.println("newList-----------------"); for (ContactData i : oldList) System.out.println(i); //Output to debug
 		Assert.assertEquals(newList, oldList);
 	}
 }

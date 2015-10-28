@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import org.testng.Assert;
+import static org.testng.Assert.assertEquals;
 import org.testng.annotations.Test;
 
 public class TestOfContactModification extends TestBase {
@@ -23,18 +23,16 @@ public class TestOfContactModification extends TestBase {
 			app.getContactHelper().submitContactUpdate();
 			app.getNavigationHelper().gotoHomePage();
 			// save new state
+			app.getNavigationHelper().openMainPage();
 			List<ContactData> newList = app.getContactHelper().getContacts();
 			// compare states
 			oldList.remove(indx);
 			oldList.add(contactData);
 			Collections.sort(oldList);
-			// System.out.println("-----------------"); for (ContactData i :
-			// oldList) System.out.println(i); //Output to debug
-			Collections.sort(newList);// без этого не работает при таком
-										// генераторе как здесь, когда возможны
-										// стоки, которые оличаются только
-										// регистром!
-			Assert.assertEquals(newList, oldList);
+			 System.out.println("oldList-----------------"+oldList.size()); for (ContactData i : oldList) System.out.println(i); //Output to debug
+			Collections.sort(newList);
+			 System.out.println("newList-----------------"+newList.size()); for (ContactData i : oldList) System.out.println(i); //Output to debug
+			assertEquals(newList, oldList);
 		}
 	}
 }

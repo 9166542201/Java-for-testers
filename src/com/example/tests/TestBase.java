@@ -40,7 +40,7 @@ public class TestBase {
 	@DataProvider
 	public Iterator<Object[]> randomValidContactGenerator() {
 		List<Object[]> list = new ArrayList<>();
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 1; i++) {
 			ContactData contact = new ContactData();
 			contact.firstname = generateRandomString();
 			contact.lastname = generateRandomString();

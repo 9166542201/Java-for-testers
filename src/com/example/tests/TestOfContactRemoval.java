@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class TestOfContactRemoval extends TestBase {
 
-	@Test
+	//@Test
 	public void deleteSomeContact() throws Exception {
 		app.getNavigationHelper().openMainPage();
 		// save old state
@@ -26,12 +26,12 @@ public class TestOfContactRemoval extends TestBase {
 			// compare states
 			oldList.remove(indx);
 			Collections.sort(oldList);
-		    Collections.sort(newList);// без этого не работает при таком генераторе как здесь, когда возможны стоки, которые оличаются только регистром!
-			assertEquals(newList, oldList);
+		    Collections.sort(newList);
+		    assertEquals(newList, oldList);
 		}
 	}
 
-	//@Test
+	@Test
 	public void deleteAllContacts() throws Exception {
 		app.getNavigationHelper().openMainPage();
 		List<ContactData> oldList = app.getContactHelper().getContacts();
