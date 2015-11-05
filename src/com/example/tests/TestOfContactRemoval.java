@@ -1,45 +1,47 @@
 package com.example.tests;
 
-import static org.testng.Assert.assertEquals;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import org.openqa.selenium.By;
 import org.testng.annotations.Test;
+
+import com.example.utils.SortedListOf;
 
 public class TestOfContactRemoval extends TestBase {
 
-	//@Test
+	@Test
 	public void deleteSomeContact() throws Exception {
-		app.getNavigationHelper().openMainPage();
 		// save old state
-		List<ContactData> oldList = app.getContactHelper().getContacts();
-		if (oldList.size() > 0) {
+		SortedListOf<ContactData> oldList = app.getContactHelper().getContacts();
+		int size = oldList.size(); 
+		if (size > 0) {
 			Random rnd = new Random();
-			int indx = rnd.nextInt(oldList.size());
-			app.getContactHelper().initContactEdit(indx);
-			app.getContactHelper().submitContactDelete();
-			app.getNavigationHelper().gotoHomePage();
+			int indx = rnd.nextInt(size);
+			app.getContactHelper().deleteContact(indx);
 			// save new state
-			List<ContactData> newList = app.getContactHelper().getContacts();
+			// SortedListOf.add()  has been changed by me!!! 
+			SortedListOf<ContactData> newList = app.getContactHelper().getContacts();
+			Collections.sort(newList);
+			app.getContactHelper().cachedContacts = null;
 			// compare states
-			oldList.remove(indx);
-			Collections.sort(oldList);
-		    Collections.sort(newList);
-		    assertEquals(newList, oldList);
+			// SortedListOf.without()  has been changed by me!!! 
+		    assertThat(newList, equalTo(oldList.without(indx)));
 		}
 	}
 
-	@Test
+	// @Test
 	public void deleteAllContacts() throws Exception {
-		app.getNavigationHelper().openMainPage();
 		List<ContactData> oldList = app.getContactHelper().getContacts();
 		if (oldList.size() > 0) {
 			for (int i = 0; i < oldList.size(); i++) {
 				app.getContactHelper().initContactEdit(0);
 				app.getContactHelper().submitContactDelete();
-				app.getNavigationHelper().gotoHomePage();
+				app.driver.findElement(By.linkText("home")).click();
 			}
 		}
 	}

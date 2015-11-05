@@ -1,38 +1,34 @@
 package com.example.tests;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
+
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
-import static org.testng.Assert.assertEquals;
 import org.testng.annotations.Test;
+
+import com.example.utils.SortedListOf;
 
 public class TestOfContactModification extends TestBase {
 
 	@Test(dataProvider = "randomValidContactGenerator")
-	public void modifySomeContact(ContactData contactData) throws Exception {
-		app.getNavigationHelper().openMainPage();
+	public void modifySomeContact(ContactData contact) throws Exception {
 		// save old state
-		List<ContactData> oldList = app.getContactHelper().getContacts();
+		SortedListOf<ContactData> oldList = app.getContactHelper().getContacts();
 		if (oldList.size() > 0) {
 			Random rnd = new Random();
 			int indx = rnd.nextInt(oldList.size());
 			// actions
-			app.getContactHelper().initContactEdit(indx);
-			app.getContactHelper().fillContactCreationForm(contactData);
-			app.getContactHelper().submitContactUpdate();
-			app.getNavigationHelper().gotoHomePage();
+			app.getContactHelper().modifyContact(indx, contact);
 			// save new state
-			app.getNavigationHelper().openMainPage();
-			List<ContactData> newList = app.getContactHelper().getContacts();
-			// compare states
-			oldList.remove(indx);
-			oldList.add(contactData);
-			Collections.sort(oldList);
-			 System.out.println("oldList-----------------"+oldList.size()); for (ContactData i : oldList) System.out.println(i); //Output to debug
+			// SortedListOf.add()  has been changed by me!!! 
+			SortedListOf<ContactData> newList = app.getContactHelper().getContacts();
 			Collections.sort(newList);
-			 System.out.println("newList-----------------"+newList.size()); for (ContactData i : oldList) System.out.println(i); //Output to debug
-			assertEquals(newList, oldList);
+			app.getContactHelper().cachedContacts = null;
+			// compare states
+			// SortedListOf.without()  has been changed by me!!! 
+			 assertThat(newList, equalTo(oldList.without(indx).withAdded(contact)));
 		}
 	}
 }

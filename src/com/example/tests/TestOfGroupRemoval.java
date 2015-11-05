@@ -1,6 +1,7 @@
 package com.example.tests;
 
-import static org.testng.Assert.assertEquals;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 import java.util.Collections;
 import java.util.List;
@@ -8,42 +9,41 @@ import java.util.Random;
 
 import org.testng.annotations.Test;
 
+import com.example.utils.SortedListOf;
+
 public class TestOfGroupRemoval extends TestBase {
 
 	@Test
 	public void deleteSomeGroup() throws Exception {
-		app.getNavigationHelper().openMainPage();
-		app.getNavigationHelper().gotoGroupPage();
 		// save old state
-		List<GroupData> oldList = app.getGroupHelper().getGroups();
+		SortedListOf<GroupData> oldList = app.getGroupHelper().getGroups();
 		if (oldList.size() > 0) {
 			Random rnd = new Random();
-			int indx = rnd.nextInt(oldList.size() - 1);
+			int indx = rnd.nextInt(oldList.size());
 			// actions
-			app.getGroupHelper().initGroupDelete(indx);
-			app.getGroupHelper().submitGroupDelete();
-			app.getNavigationHelper().returnToGroupPage();
+			app.getGroupHelper().deleteGroup(indx);
 			// save new sate
-			List<GroupData> newList = app.getGroupHelper().getGroups();
+			// SortedListOf.add()  has been changed by me!!! 
+			SortedListOf<GroupData> newList = app.getGroupHelper().getGroups();
+			Collections.sort(newList);
+			app.getGroupHelper().cachedGroups = null;
 			// compare states
-			oldList.remove(indx);
-			Collections.sort(oldList);
-		    Collections.sort(newList);
-			assertEquals(newList, oldList);
+			// SortedListOf.without()  has been changed by me!!! 
+			assertThat(newList, equalTo(oldList.without(indx)));
 		}
 	}
 
-	//@Test
+	// @Test
 	public void deleteAllGroups() throws Exception {
-		app.getNavigationHelper().openMainPage();
-		app.getNavigationHelper().gotoGroupPage();
+		app.navigateTo().mainPage();
+		app.navigateTo().groupsPage();
 		List<GroupData> oldList = app.getGroupHelper().getGroups();
 		if (oldList.size() > 0) {
 			for (int i = 0; i < oldList.size(); i++) {
 				app.getGroupHelper().initGroupDelete(i);
 			}
 			app.getGroupHelper().submitGroupDelete();
-			app.getNavigationHelper().returnToGroupPage();
+			app.navigateTo().returnToGroupPage();
 		}
 	}
 
