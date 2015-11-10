@@ -1,8 +1,17 @@
 package com.example.tests;
 
+import static com.example.tests.ContactDataGenerator.generateRandomContacts;
+import static com.example.tests.ContactDataGenerator.loadContactsFromXmlFile;
+import static com.example.tests.GroupDataGenerator.generateRandomGroups;
+import static com.example.tests.GroupDataGenerator.loadGroupsFromXmlFile;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 
 import org.testng.annotations.AfterTest;
@@ -16,7 +25,10 @@ public class TestBase {
 
 	@BeforeTest
 	public void setUp() throws Exception {
-		app = new ApplicationManager();
+		String config = System.getProperty("config", "default.properties");
+		Properties properties = new Properties();
+		properties.load(new FileReader(new File(config)));
+		app = new ApplicationManager(properties);
 	}
 
 	@AfterTest
@@ -26,45 +38,34 @@ public class TestBase {
 
 	@DataProvider
 	public Iterator<Object[]> randomValidGroupGenerator() {
-		List<Object[]> list = new ArrayList<>();
-		for (int i = 0; i < 5; i++) {
-			GroupData group = new GroupData()
-					.withName(generateRandomString())
-					.withHeader(generateRandomString())
-					.withFooter(generateRandomString());
-			list.add(new Object[] { group });
-		}
-		return list.iterator();
+		return wrapForDataProvider(generateRandomGroups(2));
+	}
+
+	@DataProvider
+	public Iterator<Object[]> groupsFromFile() throws IOException {
+		// return wrapForDataProvider(loadGroupsFromCsvFile(new File("groups.txt")));
+		return wrapForDataProvider(loadGroupsFromXmlFile(new File("groups.xml")));
 	}
 
 	@DataProvider
 	public Iterator<Object[]> randomValidContactGenerator() {
-		List<Object[]> list = new ArrayList<>();
-		for (int i = 0; i < 5; i++) {
-			ContactData contact = new ContactData();
-			contact.firstname = generateRandomString();
-			contact.lastname = generateRandomString();
-			contact.address = generateRandomString();
-			contact.address2 = generateRandomString();
-			contact.email = generateRandomString();
-			contact.email2 = null;
-			contact.home = generateRandomString();
-			contact.mobile = generateRandomString();
-			contact.phone2 = generateRandomString();
-			contact.work = generateRandomString();
+		return wrapForDataProvider(generateRandomContacts(2));
+	}
 
-			contact.bday = generateRandomDayOfBirth();
-			contact.byear = generateRandomYearOfBirth();
-			contact.bmonth = generateRandomMonthOfBirth();
+	@DataProvider
+	public Iterator<Object[]> contactsFromFile() throws IOException {
+		//return wrapForDataProvider(loadContactsFromCsvFile(new File("contacts.txt")));
+		return wrapForDataProvider(loadContactsFromXmlFile(new File("contacts.xml")));
+	}
 
-			contact.new_group = null;
-
-			list.add(new Object[] { contact });
-		}
+	private Iterator<Object[]> wrapForDataProvider(@SuppressWarnings("rawtypes") List objects) {
+		List<Object[]> list = new ArrayList<Object[]>();
+		for (Object object : objects)
+			list.add(new Object[] { object });
 		return list.iterator();
 	}
 
-	public String generateRandomString() {
+	public static String generateRandomString() {
 		Random rnd = new Random();
 		if (rnd.nextInt(3) == 0)
 			return "";
@@ -73,29 +74,4 @@ public class TestBase {
 		else
 			return "Test" + rnd.nextInt(2);
 	}
-
-	public String generateRandomDayOfBirth() {
-		Random rnd = new Random();
-		if (rnd.nextInt(2) == 0)
-			return null;
-		else
-			return "1";
-	}
-
-	public String generateRandomYearOfBirth() {
-		Random rnd = new Random();
-		if (rnd.nextInt(2) == 0)
-			return null;
-		else
-			return "2000";
-	}
-
-	public String generateRandomMonthOfBirth() {
-		Random rnd = new Random();
-		if (rnd.nextInt(2) == 0)
-			return null;
-		else
-			return "January";
-	}
-
 }

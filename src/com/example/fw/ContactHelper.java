@@ -28,18 +28,15 @@ public class ContactHelper extends HelperBase {
 		List<WebElement> firstNames = driver.findElements(By.xpath("//tr[@name='entry']//td[3]"));
 		List<WebElement> lastNames = driver.findElements(By.xpath("//tr[@name='entry']//td[2]"));
 		List<WebElement> emails = driver.findElements(By.xpath("//tr[@name='entry']//td[4]//a"));
-		List<WebElement> Telephones = driver.findElements(By.xpath("//tr[@name='entry']//td[5]"));
 
 		assert firstNames.size() == lastNames.size();
 		assert firstNames.size() == emails.size();
-		assert firstNames.size() == Telephones.size();
 
 		for (int i = 0; i < firstNames.size(); i++) {
-			ContactData contact = new ContactData();
-			contact.firstname = firstNames.get(i).getText();
-			contact.lastname = lastNames.get(i).getText();
-			contact.email = emails.get(i).getText();
-			contact.home = Telephones.get(i).getText();
+			ContactData contact = new ContactData()
+					.setFirstname(firstNames.get(i).getText())
+					.setLastname(lastNames.get(i).getText())
+					.setEmail(emails.get(i).getText());
 			cachedContacts.add(contact);
 		}
 	}
@@ -73,13 +70,13 @@ public class ContactHelper extends HelperBase {
 	}
 
 	public void fillContactCreationForm(ContactData contactData) {
-		type(By.name("firstname"), contactData.firstname);
-		type(By.name("lastname"), contactData.lastname);
-		type(By.name("address"), contactData.address);
+		type(By.name("firstname"), contactData.getFirstname());
+		type(By.name("lastname"), contactData.getLastname());
+		type(By.name("email"), contactData.getEmail());
+/*		type(By.name("address"), contactData.address);
 		type(By.name("home"), contactData.home);
 		type(By.name("mobile"), contactData.mobile);
 		type(By.name("work"), contactData.work);
-		type(By.name("email"), contactData.email);
 		type(By.name("email2"), contactData.email2);
 		selectByText(By.name("bday"), contactData.bday);
 		selectByText(By.name("bmonth"), contactData.bmonth);
@@ -87,7 +84,7 @@ public class ContactHelper extends HelperBase {
 		type(By.name("byear"), contactData.byear);
 		type(By.name("address2"), contactData.address2);
 		type(By.name("phone2"), contactData.phone2);
-	}
+*/	}
 
 	public void submitContactCreation() {
 		click(By.name("submit"));

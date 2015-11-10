@@ -1,0 +1,35 @@
+[TestNG] Running:
+  C:\Users\Vladimir\Documents\Eclipse\Java-for-testers\addressbook-selenium-tests\mySuite.xml
+
+PASSED: deleteAllGroups
+PASSED: testGroupCreationWithValidData(GroupData [group_name=test1, group_header=Test1, group_footer=])
+PASSED: testGroupCreationWithValidData(GroupData [group_name=, group_header=Test1, group_footer=test0])
+PASSED: modifySomeGroup(GroupData [group_name=Test0, group_header=test1, group_footer=Test1])
+PASSED: modifySomeGroup(GroupData [group_name=Test1, group_header=Test0, group_footer=test1])
+PASSED: deleteSomeGroup
+PASSED: deleteAllContacts
+PASSED: contactCreationWithValidData(ContactData [firstname=Test1, lastname=Test1, email=])
+PASSED: contactCreationWithValidData(ContactData [firstname=Test1, lastname=Test1, email=])
+PASSED: contactCreationWithValidData(ContactData [firstname=test0, lastname=test1, email=Test1])
+PASSED: contactCreationWithValidData(ContactData [firstname=Test1, lastname=Test0, email=Test1])
+PASSED: modifySomeContact(ContactData [firstname=, lastname=Test0, email=test1])
+PASSED: modifySomeContact(ContactData [firstname=test1, lastname=, email=Test0])
+PASSED: deleteSomeContact
+
+===============================================
+    My test
+    Tests run: 14, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+My suite
+Total tests run: 14, Failures: 0, Skips: 0
+===============================================
+
+[TestNG] Time taken by org.testng.reporters.EmailableReporter2@ea30797: 9 ms
+[TestNG] Time taken by org.testng.reporters.JUnitReportReporter@1c655221: 613 ms
+[TestNG] Time taken by org.testng.reporters.XMLReporter@4cdf35a9: 18 ms
+[TestNG] Time taken by [FailedReporter passed=0 failed=0 skipped=0]: 0 ms
+[TestNG] Time taken by org.testng.reporters.SuiteHTMLReporter@3b95a09c: 204 ms
+[TestNG] Time taken by org.testng.reporters.jq.Main@2b05039f: 49 ms

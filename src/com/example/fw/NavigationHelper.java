@@ -1,7 +1,6 @@
 package com.example.fw;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 
 public class NavigationHelper extends HelperBase {
 
@@ -33,13 +32,4 @@ public class NavigationHelper extends HelperBase {
 		click(By.linkText("group page"));
 	}
 	
-	public boolean isElementPresent(By by) {
-	    try {
-	      driver.findElement(by);
-	      return true;
-	    } catch (NoSuchElementException e) {
-	      return false;
-	    }
-	  }
-
 }

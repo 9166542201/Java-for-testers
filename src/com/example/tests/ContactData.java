@@ -1,20 +1,49 @@
 package com.example.tests;
 
 public class ContactData implements Comparable<ContactData> {
-	public String firstname;
-	public String lastname;
-	public String address;
-	public String home;
-	public String mobile;
-	public String work;
-	public String email;
-	public String email2;
-	public String bday;
-	public String bmonth;
-	public String byear;
-	public String address2;
-	public String phone2;
-	public String new_group;
+
+/*	private String address;
+	private String home;
+	private String mobile;
+	private String work;
+	private String email2;
+	private String bday;
+	private String bmonth;
+	private String byear;
+	private String address2;
+	private String phone2;
+	private String new_group;
+*/
+	private String firstname;
+	private String lastname;
+	private String email;
+	
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public ContactData setFirstname(String firstname) {
+		this.firstname = firstname;
+		return this;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public ContactData setLastname(String lastname) {
+		this.lastname = lastname;
+		return this;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public ContactData setEmail(String email) {
+		this.email = email;
+		return this;
+	}
 
 	@Override
 	public int compareTo(ContactData other) {
@@ -44,7 +73,6 @@ public class ContactData implements Comparable<ContactData> {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
-		result = prime * result + ((home == null) ? 0 : home.hashCode());
 		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
 		return 1;
 	}

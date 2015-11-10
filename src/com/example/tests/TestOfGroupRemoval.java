@@ -4,7 +4,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 import org.testng.annotations.Test;
@@ -23,27 +22,13 @@ public class TestOfGroupRemoval extends TestBase {
 			// actions
 			app.getGroupHelper().deleteGroup(indx);
 			// save new sate
-			// SortedListOf.add()  has been changed by me!!! 
+			// SortedListOf.add() has been changed by me!!!
 			SortedListOf<GroupData> newList = app.getGroupHelper().getGroups();
 			Collections.sort(newList);
 			app.getGroupHelper().cachedGroups = null;
 			// compare states
-			// SortedListOf.without()  has been changed by me!!! 
+			// SortedListOf.without() has been changed by me!!!
 			assertThat(newList, equalTo(oldList.without(indx)));
-		}
-	}
-
-	// @Test
-	public void deleteAllGroups() throws Exception {
-		app.navigateTo().mainPage();
-		app.navigateTo().groupsPage();
-		List<GroupData> oldList = app.getGroupHelper().getGroups();
-		if (oldList.size() > 0) {
-			for (int i = 0; i < oldList.size(); i++) {
-				app.getGroupHelper().initGroupDelete(i);
-			}
-			app.getGroupHelper().submitGroupDelete();
-			app.navigateTo().returnToGroupPage();
 		}
 	}
 
