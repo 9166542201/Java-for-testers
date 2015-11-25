@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [My suite]">
+  <test name="My test(failed)">
+    <classes>
+      <class name="com.example.tests.TestOfContactModification">
+        <methods>
+          <include name="setUp"/>
+          <include name="tearDown"/>
+        </methods>
+      </class> <!-- com.example.tests.TestOfContactModification -->
+      <class name="com.example.tests.TestOfGroupCreation">
+        <methods>
+          <include name="testGroupCreationWithValidData" invocation-numbers="0 1"/>
+          <include name="deleteAllGroups"/>
+        </methods>
+      </class> <!-- com.example.tests.TestOfGroupCreation -->
+      <class name="com.example.tests.TestOfContactCreation">
+        <methods>
+          <include name="deleteAllContacts"/>
+          <include name="contactCreationWithValidData" invocation-numbers="0 1"/>
+        </methods>
+      </class> <!-- com.example.tests.TestOfContactCreation -->
+    </classes>
+  </test> <!-- My test(failed) -->
+</suite> <!-- Failed suite [My suite] -->
