@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="My suite">
+  <test verbose="2" name="My test">
+    <classes>
+
+     <!--class name="com.example.tests.TestOfGroupCreation">
+        <methods>
+          <include name="deleteAllGroups"/>
+          <include name="testGroupCreationWithValidData"/>
+        </methods>
+	  </class>
+       <class name="com.example.tests.TestOfGroupModification"/>
+      <class name="com.example.tests.TestOfGroupRemoval"/-->
+
+     <class name="com.example.tests.TestOfContactCreation">
+        <methods>
+          <include name="deleteAllContacts"/>
+          <include name="contactCreationWithValidData"/>
+        </methods>
+	  </class>
+       <class name="com.example.tests.TestOfContactModification"/>
+      <class name="com.example.tests.TestOfContactRemoval"/>
+
+    </classes>
+  </test>
+</suite>

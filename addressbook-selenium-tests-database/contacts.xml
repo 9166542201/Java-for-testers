@@ -1,0 +1,12 @@
+<list>
+  <contact>
+    <firstname>Test2</firstname>
+    <lastname>Test1</lastname>
+    <email></email>
+  </contact>
+  <contact>
+    <firstname>Test1</firstname>
+    <lastname>Test1</lastname>
+    <email></email>
+  </contact>
+</list>
